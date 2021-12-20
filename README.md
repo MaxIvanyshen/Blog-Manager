@@ -1,1 +1,1 @@
-# Blog
+# Blog Manager
