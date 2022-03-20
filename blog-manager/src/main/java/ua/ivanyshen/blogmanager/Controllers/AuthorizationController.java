@@ -6,11 +6,10 @@ import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
-
-import ua.ivanyshen.blogmanager.Models.User;
-import ua.ivanyshen.blogmanager.Models.UserRepo;
-
 import org.springframework.web.bind.annotation.PostMapping;
+
+import ua.ivanyshen.blogmanager.Models.User.User;
+import ua.ivanyshen.blogmanager.Models.User.UserRepo;
 
 @Controller
 public class AuthorizationController {
@@ -22,7 +21,7 @@ public class AuthorizationController {
     @GetMapping("/signup")
     public String signup(Model model) {
         if(!MainController.username.equals("")) {
-            return "redirect:/homepage";
+            return "redirect:/";
         }
         model.addAttribute("user", new User());
         model.addAttribute("pass1", new String());

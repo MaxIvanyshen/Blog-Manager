@@ -1,4 +1,4 @@
-package ua.ivanyshen.blogmanager.Models;
+package ua.ivanyshen.blogmanager.Models.User;
 
 import org.springframework.data.jpa.repository.JpaRepository;
 

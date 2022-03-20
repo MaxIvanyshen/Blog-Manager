@@ -1,5 +1,7 @@
-package ua.ivanyshen.blogmanager.Models;
+package ua.ivanyshen.blogmanager.Models.User;
 
+import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.Collection;
 import java.util.HashSet;
 import java.util.Set;
@@ -29,6 +31,12 @@ public class User implements UserDetails {
 
     @Column(name = "password", nullable = false)
     private String password;
+
+    @Column(name = "writing", nullable = true, unique = false)
+    private String writing = "";
+
+    @Column(name = "reading", nullable = true, unique = false)
+    private String reading = "";
 
     @Transient
     private String pass1;
@@ -88,6 +96,32 @@ public class User implements UserDetails {
 
     public void setPass2(String pass2) {
         this.pass2 = pass2;
+    }
+
+    public void addWritingBlog(String blogID) {
+        if(writing.equals("")) {
+            writing = blogID;
+        }
+        else {
+            writing = writing + ", " + blogID;
+        }
+    }
+
+    public void addReadingBlog(String blogID) {
+        if(reading.equals("")) {
+            reading = blogID;
+        }
+        else {
+            reading = reading + ", " + blogID;
+        }
+    }
+
+    public ArrayList<String> getWritingBlogs() {
+        return new ArrayList<>(Arrays.asList(writing.split(", ")));
+    }
+
+    public ArrayList<String> getReadingBlogs() {
+        return new ArrayList<>(Arrays.asList(reading.split(", ")));
     }
 
     @Override
