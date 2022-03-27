@@ -1,12 +1,19 @@
 package ua.ivanyshen.blogmanager.Controllers;
 
 import org.springframework.stereotype.Controller;
+
+import javax.servlet.ServletException;
+import javax.servlet.http.HttpServletRequest;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.ui.Model;
+import org.springframework.web.bind.ServletRequestDataBinder;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.InitBinder;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.multipart.support.ByteArrayMultipartFileEditor;
 
 import ua.ivanyshen.blogmanager.Models.User.User;
 import ua.ivanyshen.blogmanager.Models.User.UserRepo;
@@ -65,4 +72,13 @@ public class AuthorizationController {
     public String login() {
         return "login";
     }
+
+    @InitBinder
+	protected void initBinder(HttpServletRequest request, ServletRequestDataBinder binder)
+		throws ServletException {
+		
+		// Convert multipart object to byte[]
+		binder.registerCustomEditor(byte[].class, new ByteArrayMultipartFileEditor());
+		
+	}
 }

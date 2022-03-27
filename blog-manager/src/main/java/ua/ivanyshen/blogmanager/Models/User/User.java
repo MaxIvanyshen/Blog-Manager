@@ -12,6 +12,7 @@ import javax.persistence.Id;
 import javax.persistence.Table;
 import javax.persistence.Transient;
 
+import org.hibernate.annotations.Type;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.authority.SimpleGrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
@@ -37,6 +38,10 @@ public class User implements UserDetails {
 
     @Column(name = "reading", nullable = true, unique = false)
     private String reading = "";
+
+    @Type(type="org.hibernate.type.BinaryType")
+    @Column(name = "icon", nullable = true, unique = false)
+    private byte[] icon;
 
     @Transient
     private String pass1;
@@ -96,6 +101,14 @@ public class User implements UserDetails {
 
     public void setPass2(String pass2) {
         this.pass2 = pass2;
+    }
+
+    public byte[] getIcon() {
+        return icon;
+    }
+
+    public void setIcon(byte[] icon) {
+        this.icon = icon;
     }
 
     public void addWritingBlog(String blogID) {

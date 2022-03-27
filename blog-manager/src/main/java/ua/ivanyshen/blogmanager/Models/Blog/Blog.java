@@ -5,6 +5,8 @@ import javax.persistence.Entity;
 import javax.persistence.Id;
 import javax.persistence.Table;
 
+import org.hibernate.annotations.Type;
+
 @Entity
 @Table(name = "blogs")
 public class Blog {
@@ -19,6 +21,14 @@ public class Blog {
 
     @Column(name = "description", nullable = true, unique = false)
     private String description;
+
+    @Type(type="org.hibernate.type.BinaryType")
+    @Column(name = "icon", nullable = true, unique = false)
+    private byte[] icon;
+
+    @Type(type="org.hibernate.type.BinaryType")
+    @Column(name = "banner", nullable = true, unique = false)
+    private byte[] banner;
 
     public Blog() {
         this.id = generateID();
@@ -64,7 +74,23 @@ public class Blog {
 
     public void setDescription(String description) {
         this.description = description;
-    } 
+    }    
+
+    public byte[] getIcon() {
+        return icon;
+    }
+
+    public void setIcon(byte[] icon) {
+        this.icon = icon;
+    }
+
+    public byte[] getBanner() {
+        return banner;
+    }
+
+    public void setBanner(byte[] banner) {
+        this.banner = banner;
+    }
 
     private String generateID() {
         int n = 7;

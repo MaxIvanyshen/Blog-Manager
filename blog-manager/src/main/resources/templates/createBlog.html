@@ -35,7 +35,7 @@
   <br>
   <h1 style="font-weight: bold; text-align: center; font-size: 35px;">Creating your own blog</h1>
   <br>
-  <form action="#" th:method="POST" th:object="${blog}" th:action="@{/create-blog}">
+  <form action="#" th:method="POST" th:object="${blog}" th:action="@{/create-blog}" enctype="multipart/form-data">
     <div class="row" style="text-align: center">
       <h2 style="font-weight: bold; font-style: italic;">General</h2>   
       <br>
@@ -76,7 +76,7 @@
       <label for="icon" style="font-size: 20px; font-weight: bold; font-style: italic;">Choose blog's icon:</label>
       <div class="example-2">
         <div class="form-group">
-          <input type="file" name="file" id="file" class="input-file">
+          <input type="file" name="icon" id="file" class="input-file">
           <label for="file" class="btn btn-tertiary js-labelFile">
             <i class="icon fa fa-check"></i>
             <span class="js-fileName">Upload File</span>
@@ -108,7 +108,7 @@
       <label for="icon" style="font-size: 20px; font-weight: bold; font-style: italic;">Choose blog's banner:</label>
       <div class="example-2">
         <div class="form-group">
-          <input type="file" name="file" id="file" class="input-file">
+          <input type="file" name="banner" id="file" class="input-file">
           <label for="file" class="btn btn-tertiary js-labelFile">
             <i class="icon fa fa-check"></i>
             <span class="js-fileName">Upload File</span>

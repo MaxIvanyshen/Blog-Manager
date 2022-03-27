@@ -25,6 +25,7 @@ public class SecutiryConfiguration extends WebSecurityConfigurerAdapter {
             .authorizeRequests().antMatchers("/login").permitAll()
             .antMatchers("/user/**").authenticated()
             .antMatchers("/login").authenticated()
+            .antMatchers("/create-blog").authenticated()
             .antMatchers(staticResources).permitAll()
             .anyRequest().permitAll()
             .and()
