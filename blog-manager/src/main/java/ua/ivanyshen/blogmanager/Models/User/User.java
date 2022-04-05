@@ -111,39 +111,42 @@ public class User implements UserDetails {
         this.icon = icon;
     }
 
-    public void addWritingBlog(String blogID) {
+    public void addWritingBlog(String blogName) {
         if(writing.equals("")) {
-            writing = blogID;
+            writing = blogName;
         }
         else {
-            writing = writing + ", " + blogID;
+            writing = writing + ", " + blogName;
         }
     }
 
-    public void addReadingBlog(String blogID) {
+    public void addReadingBlog(String blogName) {
         if(reading.equals("")) {
-            reading = blogID;
+            reading = blogName;
         }
         else {
-            reading = reading + ", " + blogID;
+            reading = reading + ", " + blogName;
         }
     }
 
-    public ArrayList<String> getWritingBlogs() {
-        return new ArrayList<>(Arrays.asList(writing.split(", ")));
+    public ArrayList<String> getWritingBlogs() { 
+        ArrayList<String> arrayList = new ArrayList<String>(Arrays.asList(writing.split(", ")));
+        return arrayList;
     }
 
     public ArrayList<String> getReadingBlogs() {
-        return new ArrayList<>(Arrays.asList(reading.split(", ")));
-    }
+        ArrayList<String> arrayList = new ArrayList<String>(Arrays.asList(reading.split(", ")));
+        return arrayList;
+   }
 
+    
     @Override
     public Collection<? extends GrantedAuthority> getAuthorities() {
        Set<GrantedAuthority> authorities = new HashSet<>();
        authorities.add(new SimpleGrantedAuthority("USER"));
        return authorities;
     }
-
+    
     @Override
     public boolean isAccountNonExpired() {
         return true;

@@ -1,10 +1,6 @@
 package ua.ivanyshen.blogmanager.Controllers;
 
-import java.io.File;
-import java.io.FileOutputStream;
 import java.io.IOException;
-import java.io.OutputStream;
-import java.util.Arrays;
 import java.util.Base64;
 
 import javax.servlet.ServletException;
@@ -31,10 +27,11 @@ import ua.ivanyshen.blogmanager.Models.User.UserRepo;
 public class BlogController {
 
     @Autowired
-    private UserRepo userRepo;
+    UserRepo userRepo;
 
     @Autowired
-    private BlogRepo repo;
+    BlogRepo repo;
+
     private String message = "";
     
 
@@ -67,7 +64,7 @@ public class BlogController {
         }
         
         User user = userRepo.findByUsername(MainController.username);
-        user.addWritingBlog(blog.getId());
+        user.addWritingBlog(blog.getName());
         userRepo.save(user);
         repo.save(blog);
         return "redirect:/";
@@ -80,6 +77,7 @@ public class BlogController {
         return "img";
     }
 
+    
     @InitBinder
 	protected void initBinder(HttpServletRequest request, ServletRequestDataBinder binder)
 		throws ServletException {

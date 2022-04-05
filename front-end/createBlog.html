@@ -1,0 +1,189 @@
+<!doctype html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+  <head>
+    <!-- Required meta tags -->
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link rel="stylesheet" href="/css/style.css">
+    <!-- Bootstrap CSS -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-1BmE4kWBq78iYhFldvKuhfTAU6auU8tT94WrHftjDbrCEXSU1oBoqyl2QvZ6jIW3" crossorigin="anonymous">
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.5.0/css/font-awesome.min.css">
+    <title>Creating your own blog</title>
+  </head>
+  <body onload="displayImages()">
+    <nav class="navbar">
+      <div class="container-fluid">
+          <div class="col-md-6">
+            <h1>Blog Manager</h1>
+          </div>
+          <div class="col-md-6">
+            <h3 style="text-align: end; color: white; font-weight: bold; font-size: 30px; margin-right: 2.5%;" th:text="${username}"></h3>
+          </div>
+        </div>
+  </nav>
+
+    <script>
+      function displayImages() {
+        console.log(navigator.userAgentData.mobile);
+        if(navigator.userAgentData.mobile) {
+          $('.createBlogImg').css("display", "none");
+        }
+      }
+    </script>
+
+<div class="conatiner-fluid" >
+  <br>
+  <h1 style="font-weight: bold; text-align: center; font-size: 35px;">Creating your own blog</h1>
+  <br>
+  <form action="#" th:method="POST" th:object="${blog}" th:action="@{/create-blog}" enctype="multipart/form-data">
+    <div class="row" style="text-align: center">
+      <h2 style="font-weight: bold; font-style: italic;">General</h2>   
+      <br>
+      <br>
+      <label for="name" style="font-size: 20px; font-weight: bold; font-style: italic;">Enter blog's name:</label>
+      <div style="text-align: center;">
+        <input th:field="*{name}" type="text" name="name" id="name" class="name" style="width: 225px;">
+      </div>
+      <br>
+      <br>
+      <label for="topic" style="font-size: 20px; font-weight: bold; font-style: italic;">Choose blog's topic: </label>
+      <div style="text-align: center;">
+        <select th:field="*{topic}" name="topic" id="topic" style="width: 225px;">
+          <option th:value="1">Programming</option>
+          <option th:value="2">Travelling</option>
+          <option th:value="3">Food</option>
+          <option th:value="4">Sport</option>
+          <option th:value="5">Science</option>
+          <option th:value="6">Design</option>
+          <option th:value="7">Trading</option>
+          <option th:value="8">Anime</option>
+          <option th:value="9">Films</option>
+          <option th:value="10">Series</option>
+          <option th:value="11">Music</option>
+          <option th:value="12">Gaming</option>
+        </select>
+      </div>
+      <br>
+      <br>
+      <label for="desc" style="font-size: 20px; font-weight: bold; font-style: italic;">Enter blog's description: </label>
+      <div style="text-align: center">
+        <textarea th:field="*{description}" name="desc" id="desc" cols="30" rows="10" style="width: 300px; height: 200px;"></textarea>
+      </div>
+      <div class="delimiter" style="color: white">______________</div>
+      <h2 style="font-weight: bold; font-style: italic;">Additional information</h2>   
+      <br>
+      <br>
+      <label for="icon" style="font-size: 20px; font-weight: bold; font-style: italic;">Choose blog's icon:</label>
+      <div class="example-2">
+        <div class="form-group">
+          <input type="file" name="icon" id="file" class="input-file">
+          <label for="file" class="btn btn-tertiary js-labelFile">
+            <i class="icon fa fa-check"></i>
+            <span class="js-fileName">Upload File</span>
+          </label>
+        </div>
+      </div>
+      <script>
+        (function() {
+    
+    'use strict';
+    
+    $('.input-file').each(function() {
+      var $input = $(this),
+          $label = $input.next('.js-labelFile'),
+          labelVal = $label.html();
+        
+      $input.on('change', function(element) {
+        var fileName = '';
+        if (element.target.value) fileName = element.target.value.split('\\').pop();
+        fileName ? $label.addClass('has-file').find('.js-fileName').html(fileName) : $label.removeClass('has-file').html(labelVal);
+      });
+    });
+    
+  })();
+      </script>
+      <br>
+      <br>
+      <br>
+      <label for="icon" style="font-size: 20px; font-weight: bold; font-style: italic;">Choose blog's banner:</label>
+      <div class="example-2">
+        <div class="form-group">
+          <input type="file" name="banner" id="file" class="input-file">
+          <label for="file" class="btn btn-tertiary js-labelFile">
+            <i class="icon fa fa-check"></i>
+            <span class="js-fileName">Upload File</span>
+          </label>
+        </div>
+      </div>
+      <br>
+      <br>
+      <br>
+
+      <label style="color: red; text-align: center;" th:text="${message}"></label>
+      <div style="text-align: center;">
+        <button type="submit" class="button" id="submitBtn" style="width: 250px; font-size: 30px;">Create Blog</button>
+      </div>
+      <br>
+      <br>
+      <br>
+    </div> 
+    <img src="./img/createBlog1.jpg" class="createBlogImg" style="position: absolute; top: 25%; left: 2.5%; width: 35%" alt="">
+    <img src="./img/createBlog2.jpg" class="createBlogImg" style="position: absolute; top: 50%; left: 62.5%; width: 35%" alt="">
+    
+
+  </form>
+</div>
+
+   <!-- Footer -->
+<footer class="page-footer font-small teal pt-4" style="background-color: #836CF8; color: #C2C2C2; font-weight: bold;">
+
+  <!-- Footer Text -->
+  <div class="container-fluid text-center text-md-left">
+
+    <!-- Grid row -->
+    <div class="row">
+
+      <!-- Grid column -->
+      <div class="col-md-6 mt-md-0 mt-3">
+
+        <!-- Content -->
+        <h5 class="text-uppercase font-weight-bold">Footer text 1</h5>
+        <p>Lorem ipsum dolor sit, amet consectetur adipisicing elit. Expedita sapiente sint, nulla, nihil
+          repudiandae commodi voluptatibus corrupti animi sequi aliquid magnam debitis, maxime quam recusandae
+          harum esse fugiat. Itaque, culpa?</p>
+
+      </div>
+      <!-- Grid column -->
+
+      <hr class="clearfix w-100 d-md-none pb-3">
+
+      <!-- Grid column -->
+      <div class="col-md-6 mb-md-0 mb-3">
+
+        <!-- Content -->
+        <h5 class="text-uppercase font-weight-bold">Footer text 2</h5>
+        <p>Lorem ipsum, dolor sit amet consectetur adipisicing elit. Optio deserunt fuga perferendis modi earum
+          commodi aperiam temporibus quod nulla nesciunt aliquid debitis ullam omnis quos ipsam, aspernatur id
+          excepturi hic.</p>
+
+      </div>
+      <!-- Grid column -->
+
+    </div>
+    <!-- Grid row -->
+
+  </div>
+  <!-- Footer Text -->
+
+  <!-- Copyright -->
+  <div class="footer-copyright text-center py-3">© 2021 Copyright
+  </div>
+  <!-- Copyright -->
+
+</footer>
+<!-- Footer -->
+
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.bundle.min.js" integrity="sha384-ka7Sk0Gln4gmtz2MlQnikT1wXgYsOg+OMhuP+IlRH9sENBO0LRn5q+8nbTov4+1p" crossorigin="anonymous"></script>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+  </body>
+</html>
