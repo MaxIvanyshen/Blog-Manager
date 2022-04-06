@@ -2,6 +2,12 @@ body {
 	font-family: "Segoe UI", Arial, sans-serif; 
 }
 
+footer { 
+    position: absolute;
+    top: 150%;
+    display: none;
+}
+
 .navbar {
     background-color: #836CF8;
 }
@@ -16,8 +22,7 @@ body {
 .bgImg {
     background-image: url("/img/andrew-neel-cckf4TsHAuw-unsplash\ \(1\).jpg");
     height: 1000px;
-    background-position: center;
-    background-size: cover;
+    background-position: center; background-size: cover;
 }
 
 .mainTitle {
@@ -106,6 +111,114 @@ body {
     position: absolute;
     top: 17.5%;
     left: 37%;
+}
+
+.top-container {
+    margin-left: 2%;
+    display: flex;
+}
+
+.label-container {
+    background-color: #836CF8;
+    border: solid 2px #836CF8;
+    border-radius: 15px;
+    width: 150px;
+    text-align: center;
+    height: 50px;
+    padding: 0;
+}
+
+.label {
+    color: white;
+    position: relative;
+    top: 50%;
+    transform: translateY(-50%);
+}
+
+.search-reading-button {
+    color: #836CF8;
+    border: solid 2px #836CF8;
+    border-radius: 15px;
+    background-color: #F5F5F5;
+    margin-left: 5%;
+    font-size: 30px; 
+    width: 50px;
+    height: 50px;
+    text-align: center;
+    font-weight: bold;
+    vertical-align: middle;
+    padding: 0;
+
+}
+
+.search-reading-button:hover {
+    background-color: #DCDCDC;
+}
+
+.blogs-container {
+    display: flex;
+}
+
+.blog {
+    margin-left: 1%;
+    border: solid 2px #836CF8;
+    border-radius: 15px;  
+    background-color: #836CF8;
+    width: 250px;
+    height: 230px;
+}
+
+.blog-name {
+    position: relative;
+    top: -30%;
+    left: 40%;
+    color: white;
+}
+
+.blog-desc {
+    position: relative;
+    top: -32.5%;
+    left: 12.5%;
+    color: white;
+}
+
+.blog-banner {
+    width: 250px;
+    border-radius: 15px;;
+    position: relative;
+    top: -1%;
+    left: -0.9%;
+}
+
+.blog-icon {
+    border: 3px solid #836CF8;
+    position: relative;
+    top: -20%;
+    left: 4%;
+    width: 100px;
+    border-radius: 50%;
+    object-fit: cover;
+    width: 75px;
+    height: 75px;
+}
+
+.create-blog-button {
+    color: #836CF8;
+    border: solid 2px #836CF8;
+    border-radius: 15px;
+    background-color: #F5F5F5;
+    margin-left: 5%;
+    font-size: 20px; 
+    width: 150px;
+    height: 50px;
+    text-align: center;
+    font-weight: bold;
+    vertical-align: middle;
+    padding: 0;
+}
+
+.create-blog-button:hover {
+    background-color: #DCDCDC;
 }
 
 /* .general {
