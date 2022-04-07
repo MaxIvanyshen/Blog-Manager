@@ -7,22 +7,81 @@
     <link rel="stylesheet" href="/css/style.css">
     <!-- Bootstrap CSS -->
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-1BmE4kWBq78iYhFldvKuhfTAU6auU8tT94WrHftjDbrCEXSU1oBoqyl2QvZ6jIW3" crossorigin="anonymous">
-
-    <title>Hello, world!</title>
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.5.0/css/font-awesome.min.css">
+    <title>Homepage</title>
   </head>
-  <body>
+  <!-- <script>
+    function cropNameAndDesc() {
+      let blogNames = document.getElementsByClassName("blog-name");
+      console.log(blogNames.length);
+      for(let i = 0; i < blogNames.length; i++) {
+        let name = blogNames.item(i).textContent;
+        if(name.split("").length > 10) {
+          let newName = name.slice(0, 7) + "...";
+          name = newName;
+        }
+        console.log(name);
+        document.getElementById("blog-name").innerText = name;
+      }
+    }
+  </script> -->
+  <body >
     <nav class="navbar">
-        <div class="container-fluid">
-            <div class="col-md-6">
-              <h1>Blog Manager</h1>
-            </div>
-            <div class="col-md-6">
-              <h3 style="text-align: end; color: white; font-weight: bold; font-size: 30px; margin-right: 2.5%;" th:text="${username}"></h3>
-              
-            </div>
+        
+    <div class="container-fluid">
+          <div class="col-md-6">
+            <h1>Blog Manager</h1>
           </div>
+          <div class="col-md-6">
+            <h3 style="text-align: end; color: white; font-weight: bold; font-size: 30px; margin-right: 2.5%;" th:text="${username}"></h3>
+          </div>
+        </div>
     </nav>
 
+    <br>
+
+   <div>
+       <div class="reading-container">
+            <div class="top-container">
+                <div class="label-container">
+                    <h3 class="label">Reading</h3>
+                </div>
+                <a href="/search"><button class="search-reading-button">+</button></a>
+            </div>
+            <br>
+           
+                <div class="blogs-container container-fluid">
+                  <div class="blog" th:if="${blog != null}" th:each="blog, state:${readingBlogsList}">
+                      <img src="#" th:src="${'data:image/jpg;charset=utf-8;base64,' + readingBannerList.get(state.index)}" alt="" class="blog-banner"> 
+                      <img src="#" th:src="${'data:image/jpg;charset=utf-8;base64,' + readingIconList.get(state.index)}" alt="" class="blog-icon"> 
+                        <h4 th:if="${#strings.length(blog.name) > 11}" class="blog-name" id="blog-name" th:text="${#strings.substring(blog.getName(), 0, 10) + '...'}">Hello World!</h4>
+
+                        <h4 th:if="${#strings.length(blog.name) <= 11}" class="blog-name" id="blog-name" th:text="${blog.name}">Hello World!</h4>
+                      <p class="blog-desc" id="blog-desc" th:text="${blog.description}">Every programmer's first app</p>
+                  </div> 
+                </div>
+        </div>
+        <br>
+        <div class="reading-container">
+            <div class="top-container">
+                <div class="label-container">
+                    <h3 class="label">Writing</h3>
+                </div>
+                <a href="/create-blog"><button class="create-blog-button">Create new</button></a>
+            </div>
+            <br>
+            <div class="blogs-container container-fluid">
+                <div class="blog" th:if="${blog != null}" th:each="blog, state:${writingBlogsList}">
+                    <img src="#" th:src="${'data:image/jpg;charset=utf-8;base64,' + writingBannerList.get(state.index)}" alt="" class="blog-banner"> 
+                    <img src="#" th:src="${'data:image/jpg;charset=utf-8;base64,' + writingIconList.get(state.index)}" alt="" class="blog-icon"> 
+                      <h4 th:if="${#strings.length(blog.name) > 11}" class="blog-name" id="blog-name" th:text="${#strings.substring(blog.getName(), 0, 10) + '...'}">Hello World!</h4>
+
+                      <h4 th:if="${#strings.length(blog.name) <= 11}" class="blog-name" id="blog-name" th:text="${blog.name}">Hello World!</h4>
+                    <p class="blog-desc" id="blog-desc" th:text="${blog.description}">Every programmer's first app</p>
+                </div> 
+            </div>
+        </div>
+    </div> 
 
    <!-- Footer -->
 <footer class="page-footer font-small teal pt-4" style="background-color: #836CF8; color: #C2C2C2; font-weight: bold;">
@@ -74,5 +133,6 @@
 <!-- Footer -->
 
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.bundle.min.js" integrity="sha384-ka7Sk0Gln4gmtz2MlQnikT1wXgYsOg+OMhuP+IlRH9sENBO0LRn5q+8nbTov4+1p" crossorigin="anonymous"></script>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
   </body>
 </html>

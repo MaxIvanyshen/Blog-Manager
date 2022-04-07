@@ -116,7 +116,7 @@ public class User implements UserDetails {
             writing = blogName;
         }
         else {
-            writing = writing + ", " + blogName;
+            writing = writing + "//" + blogName;
         }
     }
 
@@ -125,17 +125,17 @@ public class User implements UserDetails {
             reading = blogName;
         }
         else {
-            reading = reading + ", " + blogName;
+            reading = reading + "//" + blogName;
         }
     }
 
     public ArrayList<String> getWritingBlogs() { 
-        ArrayList<String> arrayList = new ArrayList<String>(Arrays.asList(writing.split(", ")));
+        ArrayList<String> arrayList = new ArrayList<String>(Arrays.asList(writing.split("//")));
         return arrayList;
     }
 
     public ArrayList<String> getReadingBlogs() {
-        ArrayList<String> arrayList = new ArrayList<String>(Arrays.asList(reading.split(", ")));
+        ArrayList<String> arrayList = new ArrayList<String>(Arrays.asList(reading.split("//")));
         return arrayList;
    }
 

@@ -38,12 +38,12 @@ public class MainController {
 
             //include the list of writing blogs
             model.addAttribute("writingBlogsList", getWritingBlogsList(user));
-            model.addAttribute("readingBlogsList", getReadingBlogs(user));
+            model.addAttribute("readingBlogsList", getReadingBlogsList(user));
             
             ArrayList<String> writingIconList = new ArrayList<>();
             for(Blog b : getWritingBlogsList(user)) {
                 if(b == null) {
-                    continue;
+                    break;
                 }
                 writingIconList.add(Base64.getEncoder().encodeToString(b.getIcon()));
             }
@@ -51,24 +51,24 @@ public class MainController {
             ArrayList<String> writingBannerList = new ArrayList<>();
             for(Blog b : getWritingBlogsList(user)) {
                 if(b == null) {
-                    continue;
+                    break;
                 }
                 writingBannerList.add(Base64.getEncoder().encodeToString(b.getBanner()));
             }
             
             
             ArrayList<String> readingIconList = new ArrayList<>();
-            for(Blog b : getReadingBlogs(user)) {
+            for(Blog b : getReadingBlogsList(user)) {
                 if(b == null) {
-                    continue;
+                    break;
                 }
                 readingIconList.add(Base64.getEncoder().encodeToString(b.getIcon()));
             }
 
             ArrayList<String> readingBannerList = new ArrayList<>();
-            for(Blog b : getReadingBlogs(user)) {
+            for(Blog b : getReadingBlogsList(user)) {
                 if(b == null) {
-                    continue;
+                    break;
                 }
                 readingBannerList.add(Base64.getEncoder().encodeToString(b.getBanner()));
             }
@@ -95,10 +95,10 @@ public class MainController {
         return list;
     }
 
-    public ArrayList<Blog> getReadingBlogs(User user) {
+    public ArrayList<Blog> getReadingBlogsList(User user) {
         ArrayList<Blog> list = new ArrayList<>();
         for(String name : user.getReadingBlogs()) {
-        Blog b = blogRepo.findByName(name); 
+            Blog b = blogRepo.findByName(name); 
             list.add(b);
         } 
         return list;

@@ -11,9 +11,10 @@ import org.hibernate.annotations.Type;
 @Table(name = "blogs")
 public class Blog {
     @Id
+    @Column(name = "id", nullable = false, unique = true)
     private String id;
 
-    @Column(name = "name", nullable = false, unique = true)
+    @Column(name = "name", nullable = false, unique = false)
     private String name;
     
     @Column(name = "topic", nullable = false, unique = false)

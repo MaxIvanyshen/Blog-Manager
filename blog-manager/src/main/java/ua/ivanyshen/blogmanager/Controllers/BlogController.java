@@ -1,7 +1,6 @@
 package ua.ivanyshen.blogmanager.Controllers;
 
 import java.io.IOException;
-import java.util.Base64;
 
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServletRequest;
@@ -68,13 +67,6 @@ public class BlogController {
         userRepo.save(user);
         repo.save(blog);
         return "redirect:/";
-    }
-
-    @GetMapping("/saveBlogIcon")
-    public String saveBlogIcon(Model model) {
-        model.addAttribute("img", Base64.getEncoder().encodeToString(repo.findByName("asdada").getIcon()));
-
-        return "img";
     }
 
     
