@@ -1,13 +1,13 @@
 package ua.ivanyshen.blogmanagerapi.model.User;
 
-public class CreateUserRequest {
+public class UserRequest {
     private String username;
     private String email;
     private String password;
 
-    public CreateUserRequest() {}
+    public UserRequest() {}
 
-    public CreateUserRequest(String username, String email, String password) {
+    public UserRequest(String username, String email, String password) {
         this.username = username;
         this.email = email;
         this.password = password;

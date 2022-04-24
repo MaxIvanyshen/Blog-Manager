@@ -4,24 +4,30 @@ import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.http.ResponseEntity;
-import ua.ivanyshen.blogmanagerapi.model.User.CreateUserRequest;
-import ua.ivanyshen.blogmanagerapi.model.User.User;
+import org.springframework.security.core.context.SecurityContextHolder;
+import org.springframework.security.core.userdetails.UserDetails;
+import ua.ivanyshen.blogmanagerapi.model.Blog.BlogRepository;
+import ua.ivanyshen.blogmanagerapi.model.User.UserRequest;
 import ua.ivanyshen.blogmanagerapi.model.User.UserRepository;
 import ua.ivanyshen.blogmanagerapi.model.User.UserResponse;
+import ua.ivanyshen.blogmanagerapi.model.User.UserService;
 
 import static org.assertj.core.api.Assertions.assertThat;
 
 @SpringBootTest
 public class UserControllerTests {
 
-    @Autowired
-    private UserRepository repo;
+    private UserService service;
+    private UserController controller;
 
+    @Autowired
+    public UserControllerTests(UserService service, BlogController controller) {
+        this.service = service;
+        this.controller = new UserController(service);
+    }
     @Test
     void createNewUserTest() {
-        CreateUserRequest req = new CreateUserRequest("Frozr", "maxivanyshen@gmail.com", "nastya2016");
-
-        UserController controller = new UserController(repo);
+        UserRequest req = new UserRequest("Frozr", "maxivanyshen@gmail.com", "nastya2016");
 
         assertThat(controller.createNewUser(req)
                 .getUsername())
@@ -35,8 +41,6 @@ public class UserControllerTests {
         UserResponse res = new UserResponse("6cV3ztBm9GMYKGO", "Frozr", "maxivanyshen@gmail.com");
 
         ResponseEntity<UserResponse> resEntity = ResponseEntity.ok(res);
-
-        UserController controller = new UserController(repo);
 
         assertThat(controller.getUser(id).getBody().getId())
                 .isEqualTo(resEntity.getBody().getId());
