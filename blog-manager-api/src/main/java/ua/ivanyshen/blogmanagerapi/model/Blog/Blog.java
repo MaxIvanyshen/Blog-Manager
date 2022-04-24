@@ -35,6 +35,13 @@ public class Blog {
         this.id = generateID();
     }
 
+    public Blog(String name, String topic, String description) {
+        this.id = generateID();
+        this.name = name;
+        this.topic = topic;
+        this.description = description;
+    }
+
     public String getId() {
         return id;
     }

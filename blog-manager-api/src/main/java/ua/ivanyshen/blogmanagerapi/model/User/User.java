@@ -1,15 +1,14 @@
 package ua.ivanyshen.blogmanagerapi.model.User;
 
+import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
+
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Collection;
 import java.util.HashSet;
 import java.util.Set;
 
-import javax.persistence.Column;
-import javax.persistence.Entity;
-import javax.persistence.Id;
-import javax.persistence.Table;
+import javax.persistence.*;
 
 @Entity
 @Table(name = "users")
@@ -36,6 +35,9 @@ public class User {
 //    @Type(type="org.hibernate.type.BinaryType")
 //    @Column(name = "icon", nullable = true, unique = false)
 //    private byte[] icon;
+
+    @Transient
+    BCryptPasswordEncoder encoder = new BCryptPasswordEncoder();
 
     public User() {
         this.id = generateID();
@@ -117,6 +119,13 @@ public class User {
 //        ArrayList<String> arrayList = new ArrayList<String>(Arrays.asList(reading.split("//")));
 //        return arrayList;
 //    }
+
+    public boolean equals(User u) {
+        if(u.getEmail().equals(this.getEmail()) && u.getUsername().equals(this.getUsername()) && u.getId().equals(this.getId())) {
+            return true;
+        }
+        return false;
+    }
 
     @Override
     public String toString() {
