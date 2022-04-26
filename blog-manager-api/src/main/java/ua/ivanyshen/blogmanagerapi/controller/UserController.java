@@ -56,7 +56,7 @@ public class UserController {
         //password encoder
         BCryptPasswordEncoder encoder = new BCryptPasswordEncoder();
 
-        if(encoder.matches(req.getPassword(), u.getPassword())) { //if passwords match
+        if(encoder.matches(req.getPassword(), foundUser.getPassword())) { //if passwords match
             return userService.loadUserByUsername(req.getUsername()); //log user in
         }
         //else 
@@ -65,22 +65,9 @@ public class UserController {
 
     //get current logged user username
     @GetMapping("/users/current")
-    public ResponseEntity<String> currentUserUsername() {
-        //get current user data
-        Object principal = SecurityContextHolder.getContext().getAuthentication().getPrincipal();
-
-        String username = "";
-        
-        boolean userLoggedIn = principal instanceof UserDetails;
-
-        if (userLoggedIn) {
-            username = ((UserDetails)principal).getUsername();
-        } else {
-            username = principal.toString(); //returns "anonymousUser"
-        }
-        
-        //return current user username as a response
-        return ResponseEntity.ok(username);
+    public ResponseEntity<String> getCurrentUserUsername() {
+        String currentUserUsername = userService.getCurrentUserUsername();
+        return ResponseEntity.ok(currentUserUsername);
     }
 
 }

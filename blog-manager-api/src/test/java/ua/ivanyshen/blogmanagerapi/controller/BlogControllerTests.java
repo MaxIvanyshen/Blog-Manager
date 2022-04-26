@@ -5,7 +5,10 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 import ua.ivanyshen.blogmanagerapi.model.Blog.Blog;
 import ua.ivanyshen.blogmanagerapi.model.Blog.BlogRepository;
+import ua.ivanyshen.blogmanagerapi.model.Blog.BlogService;
 import ua.ivanyshen.blogmanagerapi.model.Blog.CreateBlogRequest;
+import ua.ivanyshen.blogmanagerapi.model.User.User;
+import ua.ivanyshen.blogmanagerapi.model.User.UserService;
 
 import static org.assertj.core.api.Assertions.assertThat;
 
@@ -13,13 +16,17 @@ import static org.assertj.core.api.Assertions.assertThat;
 @SpringBootTest
 public class BlogControllerTests {
 
-    private BlogRepository blogRepo;
+    private BlogService blogService;
+
+    private UserService userService;
+
     private BlogController controller;
 
     @Autowired
-    public BlogControllerTests(BlogRepository blogRepo, BlogController controller) {
-        this.blogRepo = blogRepo;
-        this.controller = new BlogController(blogRepo);
+    public BlogControllerTests(BlogService blogService, UserService userService) {
+        this.blogService = blogService;
+        this.controller = new BlogController(blogService, userService);
+        this.userService = userService;
     }
 
     @Test
@@ -33,9 +40,17 @@ public class BlogControllerTests {
 
     @Test
     void createBlogTest() {
-        CreateBlogRequest req = new CreateBlogRequest("Test Blog", "Test", "A test for creating blogs");
+        Blog b = new Blog("Test Blog", "Test", "A test for creating blogs");
 
-        assertThat(controller.createBlog(req).getName())
-                .isEqualTo(req.getName());
+        Blog savedBlog = blogService.save(b);
+
+        User u = userService.findById("Q3hsh81pb7EcGmi");
+
+        u.addWritingBlogId(savedBlog.getId());
+
+        userService.save(u);
+
+        assertThat(u.getWritingBlogsList().get(u.getWritingBlogsList().size()-1))
+                .isEqualTo(b.getId());
     }
 }

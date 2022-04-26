@@ -1,9 +1,15 @@
 package ua.ivanyshen.blogmanagerapi.model.User;
 
+import java.util.List;
+
 public class UserResponse {
     private String id;
     private String username;
     private String email;
+
+    private String[] writingBlogsId;
+
+    private String[] readingBlogsId;
 
     public UserResponse() {}
 
@@ -41,5 +47,21 @@ public class UserResponse {
 
     public void setEmail(String email) {
         this.email = email;
+    }
+
+    public String[] getWritingBlogsId() {
+        return writingBlogsId;
+    }
+
+    public void setWritingBlogsId(String[] writingBlogsId) {
+        this.writingBlogsId = writingBlogsId;
+    }
+
+    public String[] getReadingBlogsId() {
+        return readingBlogsId;
+    }
+
+    public void setReadingBlogsId(String[] readingBlogsId) {
+        this.readingBlogsId = readingBlogsId;
     }
 }

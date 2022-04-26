@@ -1,11 +1,15 @@
 package ua.ivanyshen.blogmanagerapi.model.User;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.ResponseEntity;
 import org.springframework.security.core.authority.SimpleGrantedAuthority;
+import org.springframework.security.core.context.SecurityContextHolder;
+import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.stereotype.Service;
 import ua.ivanyshen.blogmanagerapi.exception.ResourceNotFoundException;
+import ua.ivanyshen.blogmanagerapi.model.Blog.Blog;
 
 import java.util.Arrays;
 import java.util.List;
@@ -35,6 +39,32 @@ public class UserService implements UserDetailsService {
 
     public User findByUsername(String username) {
         return repo.findByUsername(username);
+    }
+
+    public void addWritingBlogToList(Blog b) {
+        String currentUserUsername = getCurrentUserUsername();
+        User currentUser = findByUsername(currentUserUsername);
+        currentUser.addWritingBlogId(b.getId());
+
+        save(currentUser);
+    }
+
+    public String getCurrentUserUsername() {
+        //get current user data
+        Object principal = SecurityContextHolder.getContext().getAuthentication().getPrincipal();
+
+        String username = "";
+
+        boolean userLoggedIn = principal instanceof UserDetails;
+
+        if (userLoggedIn) {
+            username = ((UserDetails)principal).getUsername();
+        } else {
+            username = principal.toString(); //returns "anonymousUser"
+        }
+
+        //return current user username as a response
+        return username;
     }
 
     @Override

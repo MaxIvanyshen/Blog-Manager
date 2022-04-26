@@ -1,9 +1,15 @@
 package ua.ivanyshen.blogmanagerapi.model.User;
 
+import com.vladmihalcea.hibernate.type.array.ListArrayType;
+import org.hibernate.annotations.Type;
+import org.hibernate.annotations.TypeDef;
+import org.hibernate.boot.model.source.internal.hbm.HibernateTypeSourceImpl;
+import org.hibernate.boot.model.source.spi.HibernateTypeSource;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.authority.SimpleGrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
+import ua.ivanyshen.blogmanagerapi.model.Blog.Blog;
 
 import java.util.*;
 
@@ -11,6 +17,10 @@ import javax.persistence.*;
 
 @Entity
 @Table(name = "users")
+@TypeDef(
+        name = "list-array",
+        typeClass = ListArrayType.class
+)
 public class User implements UserDetails {
 
     @Id
@@ -25,11 +35,13 @@ public class User implements UserDetails {
     @Column(name = "password", nullable = false)
     private String password;
 
-//    @Column(name = "writing", nullable = true, unique = false)
-//    private String writing = "";
-//
-//    @Column(name = "reading", nullable = true, unique = false)
-//    private String reading = "";
+    @Type(type = "list-array")
+    @Column(name = "writing", columnDefinition = "VARCHAR(7)[]", nullable = true, unique = false)
+    private List<String> writingBlogsList;
+
+    @Type(type = "list-array")
+    @Column(name = "reading", columnDefinition = "VARCHAR(7)[]", nullable = true, unique = false)
+    private List<String> readingBlogsList;
 //
 //    @Type(type="org.hibernate.type.BinaryType")
 //    @Column(name = "icon", nullable = true, unique = false)
@@ -144,6 +156,22 @@ public class User implements UserDetails {
 //        return arrayList;
 //    }
 
+    public List<String> getWritingBlogsList() {
+        return writingBlogsList;
+    }
+
+    public void setWritingBlogsList(List<String> writingBlogsList) {
+        this.writingBlogsList = writingBlogsList;
+    }
+
+    public List<String> getReadingBlogsList() {
+        return readingBlogsList;
+    }
+
+    public void setReadingBlogsList(List<String> readingBlogsList) {
+        this.readingBlogsList = readingBlogsList;
+    }
+
     public boolean equals(User u) {
         if(u.getEmail().equals(this.getEmail()) && u.getUsername().equals(this.getUsername()) && u.getId().equals(this.getId())) {
             return true;
@@ -181,4 +209,17 @@ public class User implements UserDetails {
         return sb.toString();
     }
 
+    public void addWritingBlogId(String id) {
+        if(writingBlogsList == null) {
+            writingBlogsList = new ArrayList<>();
+        }
+        writingBlogsList.add(id);
+    }
+
+    public void addReadingBlogId(String id) {
+        if(readingBlogsList == null) {
+            readingBlogsList = new ArrayList<>();
+        }
+        readingBlogsList.add(id);
+    }
 }
