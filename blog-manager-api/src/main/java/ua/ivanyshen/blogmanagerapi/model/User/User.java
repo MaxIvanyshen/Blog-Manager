@@ -132,55 +132,10 @@ public class User implements UserDetails {
         return writingBlogsList;
     }
 
-    public void setWritingBlogsList(List<String> writingBlogsList) {
-        this.writingBlogsList = writingBlogsList;
-    }
-
     public List<String> getReadingBlogsList() {
         return readingBlogsList;
     }
-
-    public void setReadingBlogsList(List<String> readingBlogsList) {
-        this.readingBlogsList = readingBlogsList;
-    }
-
-    public boolean equals(User u) {
-        if(u.getEmail().equals(this.getEmail()) && u.getUsername().equals(this.getUsername()) && u.getId().equals(this.getId())) {
-            return true;
-        }
-        return false;
-    }
-
-    @Override
-    public String toString() {
-        return String.format("User: {id: %s; username: %s; email: %s; password: %s;}", id, username, email, password);
-    }
-
-    private String generateID() {
-        int n = 15;
-        String AlphaNumericString = "ABCDEFGHIJKLMNOPQRSTUVWXYZ"
-                + "0123456789"
-                + "abcdefghijklmnopqrstuvxyz";
-
-        // create StringBuffer size of AlphaNumericString
-        StringBuilder sb = new StringBuilder(n);
-
-        for (int i = 0; i < n; i++) {
-
-            // generate a random number between
-            // 0 to AlphaNumericString variable length
-            int index
-                    = (int)(AlphaNumericString.length()
-                    * Math.random());
-
-            // add Character one by one in end of sb
-            sb.append(AlphaNumericString
-                    .charAt(index));
-        }
-
-        return sb.toString();
-    }
-
+        
     public void addWritingBlogId(String id) {
         if(writingBlogsList == null) {
             writingBlogsList = new ArrayList<>();
@@ -193,5 +148,29 @@ public class User implements UserDetails {
             readingBlogsList = new ArrayList<>();
         }
         readingBlogsList.add(id);
+    }
+
+    public boolean equals(User u) {
+        if(u.getEmail().equals(this.getEmail()) && u.getUsername().equals(this.getUsername()) && u.getId().equals(this.getId())) {
+            return true;
+        }
+        return false;
+    }
+
+    private String generateID() {
+        int n = 15;
+        String AlphaNumericString = "ABCDEFGHIJKLMNOPQRSTUVWXYZ"
+                + "0123456789"
+                + "abcdefghijklmnopqrstuvxyz";
+
+        StringBuilder sb = new StringBuilder(n);
+
+        for (int i = 0; i < n; i++) {
+            int index = (int)(AlphaNumericString.length() * Math.random());
+                
+            sb.append(AlphaNumericString.charAt(index));
+        }
+
+        return sb.toString();
     }
 }
