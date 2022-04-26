@@ -7,9 +7,9 @@ public class UserResponse {
     private String username;
     private String email;
 
-    private String[] writingBlogsId;
+    private List<String> writingBlogsList;
 
-    private String[] readingBlogsId;
+    private List<String> readingBlogsList;
 
     public UserResponse() {}
 
@@ -23,6 +23,8 @@ public class UserResponse {
         this.id = u.getId();
         this.username = u.getUsername();
         this.email = u.getEmail();
+        this.writingBlogsList = u.getWritingBlogsList();
+        this.readingBlogsList = u.getReadingBlogsList();
     }
 
     public String getId() {
@@ -49,19 +51,19 @@ public class UserResponse {
         this.email = email;
     }
 
-    public String[] getWritingBlogsId() {
-        return writingBlogsId;
+    public List<String> getWritingBlogsList() {
+        return writingBlogsList;
     }
 
-    public void setWritingBlogsId(String[] writingBlogsId) {
-        this.writingBlogsId = writingBlogsId;
+    public void setWritingBlogsList(List<String> writingBlogsList) {
+        this.writingBlogsList = writingBlogsList;
     }
 
-    public String[] getReadingBlogsId() {
-        return readingBlogsId;
+    public List<String> getReadingBlogsList() {
+        return readingBlogsList;
     }
 
-    public void setReadingBlogsId(String[] readingBlogsId) {
-        this.readingBlogsId = readingBlogsId;
+    public void setReadingBlogsList(List<String> readingBlogsList) {
+        this.readingBlogsList = readingBlogsList;
     }
 }

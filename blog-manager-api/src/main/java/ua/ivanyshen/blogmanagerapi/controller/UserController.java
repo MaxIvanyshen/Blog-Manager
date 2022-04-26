@@ -26,10 +26,7 @@ public class UserController {
         User foundUser = userService.findById(id);
 
         //create user response with data from found user
-        UserResponse res = new UserResponse();
-        res.setId(foundUser.getId());
-        res.setUsername(foundUser.getUsername());
-        res.setEmail(foundUser.getEmail());
+        UserResponse res = new UserResponse(foundUser);
 
         //return user response
         return ResponseEntity.ok(res);
