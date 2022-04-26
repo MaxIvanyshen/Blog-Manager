@@ -27,16 +27,13 @@ public class BlogController {
         this.userService = userService;
     }
 
-    //get blog by id rest api
     @GetMapping("/blogs/{id}")
     public ResponseEntity<Blog> getBlog(@PathVariable String id) {
         Blog b = blogService.findById(id); //find blog by id
-
-        //return blog as a response
+        
         return ResponseEntity.ok(b);
     }
 
-    //create blog rest api
     @PostMapping("/blogs")
     public Blog createBlog(@RequestBody CreateBlogRequest req) {
         //create new blog from a request
@@ -44,19 +41,17 @@ public class BlogController {
 
         userService.addWritingBlogToList(b);
         
-        //return newly created blog
         return blogService.save(b);
     }
 
     @PostMapping("/blogs/{id}")
     public ResponseEntity<Long> addBlogToFavorites(@PathVariable String id) {
-        //find blog by id received as path variable
         Blog b = blogService.findById(id);
+        
         b.setReadersCount(b.getReadersCount() + 1);
 
         userService.addReadingBlogToList(b);
 
-        //update variable
         b = blogService.save(b);
 
         return ResponseEntity.ok(b.getReadersCount());
