@@ -23,16 +23,23 @@ public class BlogController {
         this.blogRepo = blogRepo;
     }
 
+    //get blog by id rest api
     @GetMapping("/blogs/{id}")
     public ResponseEntity<Blog> getBlog(@PathVariable String id) {
-        Blog b = blogRepo.findById(id)
+        Blog b = blogRepo.findById(id) //find blog by id or throw a ResourceNotFoundException if blog is not found
                 .orElseThrow(() -> new ResourceNotFoundException("Blog not found"));
+        
+        //return blog as a response
         return ResponseEntity.ok(b);
     }
 
+    //create blog rest api
     @PostMapping("/blogs")
     public Blog createBlog(@RequestBody CreateBlogRequest req) {
+        //create new blog from a request
         Blog b = new Blog(req.getName(), req.getTopic(), req.getDescription());
+        
+        //return newly created blog
         return blogRepo.save(b);
     }
 }
