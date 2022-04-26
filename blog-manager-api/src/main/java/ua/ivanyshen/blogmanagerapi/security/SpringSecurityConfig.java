@@ -33,16 +33,15 @@ public class SpringSecurityConfig extends WebSecurityConfigurerAdapter {
     @Override
     protected void configure(HttpSecurity http) throws Exception {
         http
-                .csrf().disable() //disable csrf
-                .authorizeRequests().antMatchers("/api/v1/blogs/**").authenticated() //if user tries to make erquest to "/api/v1/blogs" he needs to be logged in
-                .and().logout().logoutUrl("/api/v1/logout")                          //change logout url to "/api/v1/logout"/ instead of "/logout"
-                .and().httpBasic()                                                   //use Basic Authorization
-                .and().sessionManagement().disable();                                //disable session management
+                .csrf().disable()
+                .authorizeRequests().antMatchers("/api/v1/blogs/**").authenticated()
+                .and().logout().logoutUrl("/api/v1/logout")
+                .and().httpBasic()
+                .and().sessionManagement().disable();
     }
 
     @Override
     public void configure(AuthenticationManagerBuilder builder) throws Exception {
-         //now Spring Security will use UserService to find user and log him in
         builder.userDetailsService(userService);                                   
     } 
     
