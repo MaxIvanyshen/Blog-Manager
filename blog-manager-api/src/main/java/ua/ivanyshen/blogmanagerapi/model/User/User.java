@@ -127,34 +127,6 @@ public class User implements UserDetails {
 //    public void setIcon(byte[] icon) {
 //        this.icon = icon;
 //    }
-//
-//    public void addWritingBlog(String blogName) {
-//        if(writing.equals("")) {
-//            writing = blogName;
-//        }
-//        else {
-//            writing = writing + "//" + blogName;
-//        }
-//    }
-//
-//    public void addReadingBlog(String blogName) {
-//        if(reading.equals("")) {
-//            reading = blogName;
-//        }
-//        else {
-//            reading = reading + "//" + blogName;
-//        }
-//    }
-//
-//    public ArrayList<String> getWritingBlogs() {
-//        ArrayList<String> arrayList = new ArrayList<String>(Arrays.asList(writing.split("//")));
-//        return arrayList;
-//    }
-//
-//    public ArrayList<String> getReadingBlogs() {
-//        ArrayList<String> arrayList = new ArrayList<String>(Arrays.asList(reading.split("//")));
-//        return arrayList;
-//    }
 
     public List<String> getWritingBlogsList() {
         return writingBlogsList;
