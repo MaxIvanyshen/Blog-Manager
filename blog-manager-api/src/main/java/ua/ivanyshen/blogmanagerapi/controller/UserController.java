@@ -17,13 +17,13 @@ public class UserController {
 
     @Autowired
     public UserController(UserService userService) {
-        this.service = service;
+        this.userService = userService;
     }
 
     //get user rest api
     @GetMapping("/users/{id}")
     public ResponseEntity<UserResponse> getUser(@PathVariable String id) {
-        User foundUser = service.findById(id);
+        User foundUser = userService.findById(id);
 
         //create user response with data from found user
         UserResponse res = new UserResponse();
@@ -51,13 +51,13 @@ public class UserController {
     @PostMapping("/login")
     //TODO: redo this thing
     public org.springframework.security.core.userdetails.User login(@RequestBody UserRequest req) {
-        User foundUser = service.findByUsername(req.getUsername());
+        User foundUser = userService.findByUsername(req.getUsername());
 
         //password encoder
         BCryptPasswordEncoder encoder = new BCryptPasswordEncoder();
 
         if(encoder.matches(req.getPassword(), u.getPassword())) { //if passwords match
-            return service.loadUserByUsername(req.getUsername()); //log user in
+            return userService.loadUserByUsername(req.getUsername()); //log user in
         }
         //else 
         return null;
