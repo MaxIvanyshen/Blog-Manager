@@ -42,15 +42,39 @@ public class BlogControllerTests {
     void createBlogTest() {
         Blog b = new Blog("Test Blog", "Test", "A test for creating blogs");
 
-        Blog savedBlog = blogService.save(b);
+        b = blogService.save(b);
 
         User u = userService.findById("Q3hsh81pb7EcGmi");
 
-        u.addWritingBlogId(savedBlog.getId());
+        u.addWritingBlogId(b.getId());
 
         userService.save(u);
 
         assertThat(u.getWritingBlogsList().get(u.getWritingBlogsList().size()-1))
                 .isEqualTo(b.getId());
+    }
+
+    @Test
+    void addBlogToFavoritesTest() {
+
+        User u = userService.findById("MTNsTZX5iNc3609");
+
+        Blog b = new Blog("Test Blog", "Test", "A test for liking blogs");
+
+        b.setReadersCount(b.getReadersCount() + 1);
+        blogService.save(b);
+
+        u.addReadingBlogId(b.getId());
+
+        userService.save(u);
+
+        assertThat(u.getReadingBlogsList().get(u.getReadingBlogsList().size() - 1))
+                .isEqualTo(b.getId());
+    }
+
+    @Test
+    void deleteReadingBlogs() {
+        User u = userService.findById("MTNsTZX5iNc3609");
+        u.getReadingBlogsList().clear();
     }
 }

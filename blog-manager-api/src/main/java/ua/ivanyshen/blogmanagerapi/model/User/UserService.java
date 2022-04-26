@@ -42,10 +42,14 @@ public class UserService implements UserDetailsService {
     }
 
     public void addWritingBlogToList(Blog b) {
-        String currentUserUsername = getCurrentUserUsername();
-        User currentUser = findByUsername(currentUserUsername);
+        User currentUser = getCurrentUser();
         currentUser.addWritingBlogId(b.getId());
+        save(currentUser);
+    }
 
+    public void addReadingBlogToList(Blog b) {
+        User currentUser = getCurrentUser();
+        currentUser.addReadingBlogId(b.getId());
         save(currentUser);
     }
 
@@ -60,15 +64,23 @@ public class UserService implements UserDetailsService {
         if (userLoggedIn) {
             username = ((UserDetails)principal).getUsername();
         } else {
-            username = principal.toString(); //returns "anonymousUser"
+            //username = "anonymousUser"
+            username = principal.toString();
         }
 
-        //return current user username as a response
+        //return current user username
         return username;
     }
 
+    public User getCurrentUser() {
+        String username = getCurrentUserUsername();
+        return findByUsername(username);
+    }
+
+
     @Override
     public org.springframework.security.core.userdetails.User loadUserByUsername(String username) throws UsernameNotFoundException {
+        //find user by username in database
         User user = repo.findByUsername(username);
 
         if(user == null) {

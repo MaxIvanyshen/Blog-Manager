@@ -1,11 +1,12 @@
 package ua.ivanyshen.blogmanagerapi.model.Blog;
 
-import javax.persistence.Column;
-import javax.persistence.Entity;
-import javax.persistence.Id;
-import javax.persistence.Table;
+import javax.persistence.*;
 
 import org.hibernate.annotations.Type;
+
+import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.List;
 
 @Entity
 @Table(name = "blogs")
@@ -22,6 +23,9 @@ public class Blog {
 
     @Column(name = "description", nullable = true, unique = false)
     private String description;
+
+    @Column(name = "readers", nullable = false, unique = false)
+    private Long readersCount = Long.valueOf(0);
 
 //    @Type(type="org.hibernate.type.BinaryType")
 //    @Column(name = "icon", nullable = true, unique = false)
@@ -58,22 +62,8 @@ public class Blog {
         return this.topic;
     }
 
-    public void setTopic(String str) {
-        int a = Integer.parseInt(str);
-        switch(a) {
-            case 1: this.topic="Programming";
-            case 2: this.topic="Travelling";
-            case 3: this.topic="Food";
-            case 4: this.topic="Sport";
-            case 5: this.topic="Science";
-            case 6: this.topic="Design";
-            case 7: this.topic="Trading";
-            case 8: this.topic="Anime";
-            case 9: this.topic="Films";
-            case 10: this.topic="Series";
-            case 11: this.topic="Music";
-            case 12: this.topic="Gaming";
-        }
+    public void setTopic(String topic) {
+        this.topic = topic;
     }
 
     public String getDescription() {
@@ -84,7 +74,15 @@ public class Blog {
         this.description = description;
     }
 
-//    public byte[] getIcon() {
+    public Long getReadersCount() {
+        return readersCount;
+    }
+
+    public void setReadersCount(Long readersCount) {
+        this.readersCount = readersCount;
+    }
+
+    //    public byte[] getIcon() {
 //        return icon;
 //    }
 //

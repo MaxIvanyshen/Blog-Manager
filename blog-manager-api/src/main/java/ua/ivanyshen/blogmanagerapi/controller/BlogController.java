@@ -47,4 +47,19 @@ public class BlogController {
         //return newly created blog
         return blogService.save(b);
     }
+
+    @PostMapping("/blogs/{id}")
+    public ResponseEntity<Long> addBlogToFavorites(@PathVariable String id) {
+        //find blog by id received as path variable
+        Blog b = blogService.findById(id);
+        b.setReadersCount(b.getReadersCount() + 1);
+
+        userService.addReadingBlogToList(b);
+
+        //update variable
+        b = blogService.save(b);
+
+        return ResponseEntity.ok(b.getReadersCount());
+
+    }
 }
